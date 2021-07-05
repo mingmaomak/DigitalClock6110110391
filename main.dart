@@ -5,10 +5,11 @@ import 'dart:async';
 void main() async {
   final file = File('input.txt');
   var linelist = []; //storing input as lines from input.txt
-  var hour = -1; //initialize hour integer
-  var min = -1; //initialize minute integer
+  var hour = 0; //initialize hour integer
+  var min = 0; //initialize minute integer
   var temp = ''; //temp string
   var hm = []; //hour and minute in a single list
+  var state = -1;
 
   Stream<String> lines = file
       .openRead()
@@ -26,9 +27,42 @@ void main() async {
   for (var l in linelist) //loop for each item in "linelist"
   {
     print('input command is $l');
-    if (l[0] == 'o') {
-      temp = l.substring(3); //removes "on "
-      hm = temp.split(' ');
+    if (state == -1) {
+      if (l[0] == 'o') {
+        temp = l.substring(3); //removes "on "
+        hm = temp.split(
+            ' '); //split the remaining string into a list of hour and minutes
+        hour = hm[0];
+        min = hm[1];
+        if (hour == 0 && min == 0) {
+          state = 1;
+        } else {
+          state = 0;
+        }
+      }
+    }
+    if (state == 0) {
+      if (l[0] == 'o') {
+        temp = l.substring(3); //removes "on "
+        hm = temp.split(
+            ' '); //split the remaining string into a list of hour and minutes
+        hour = hm[0];
+        min = hm[1];
+        if (hour == 0 && min == 0) {
+          state = 1;
+        } else {
+          state = 0;
+        }
+      }
+      if (l[0] == 's') {
+        state = 1;
+        print('''Beep
+        current hour: $hour''');
+      }
+      if (l[0] == 'i') {
+        print('illegal command starting with i');
+      }
     }
   }
 }
+
