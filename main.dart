@@ -36,8 +36,11 @@ void main() async {
         min = hm[1];
         if (hour == 0 && min == 0) {
           state = 1;
+          print('''Beep
+          current hour is $hour''');
         } else {
           state = 0;
+          print('current time is $hour:$min');
         }
       }
     }
@@ -50,14 +53,17 @@ void main() async {
         min = hm[1];
         if (hour == 0 && min == 0) {
           state = 1;
+          print('''Beep
+          current hour is $hour''');
         } else {
           state = 0;
+          print('current time is $hour:$min');
         }
       }
       if (l[0] == 's') {
         state = 1;
         print('''Beep
-        current hour: $hour''');
+        current hour is $hour''');
       }
       if (l[0] == 'i') {
         print('illegal command starting with i');
@@ -65,4 +71,3 @@ void main() async {
     }
   }
 }
-
